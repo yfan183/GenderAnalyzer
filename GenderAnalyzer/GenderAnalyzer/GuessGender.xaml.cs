@@ -93,12 +93,12 @@ namespace GenderAnalyzer
                             await DisplayAlert("Wow","Hmm, I can't really tell.","Ok");
                             break;
                         }
-                        else if (item.Tag == "male" && item.Probability > 0.5)
+                        else if (item.Tag == "male" && item.Probability > 0.7)
                         {
                             await DisplayAlert("Wow", "Hmm, I think this is a male.", "Ok");
                             break;
                         }
-                        else if (item.Tag == "female" && item.Probability > 0.5)
+                        else if (item.Tag == "female" && item.Probability > 0.7)
                         {
                             await DisplayAlert("Wow", "Hmm, I think this is a female.", "Ok");
                             break;
