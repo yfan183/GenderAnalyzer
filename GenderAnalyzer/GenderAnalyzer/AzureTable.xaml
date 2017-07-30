@@ -28,6 +28,8 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <Button Clicked="Button_Clicked" Text="Submit your own data" TextColor="White" BackgroundColor="Red"></Button>
         </StackLayout>
+        
     </ContentPage.Content>
 </ContentPage>

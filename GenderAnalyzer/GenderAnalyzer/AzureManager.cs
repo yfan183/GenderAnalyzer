@@ -41,5 +41,10 @@ namespace GenderAnalyzer
         {
             return await this.genderStatsTable.ToListAsync();
         }
+
+        public async Task PostGenderStats(GenderGuesserModel genderGuesserModel)
+        {
+            await this.genderStatsTable.InsertAsync(genderGuesserModel);
+        }
     }
 }

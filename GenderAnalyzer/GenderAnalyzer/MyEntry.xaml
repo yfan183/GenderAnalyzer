@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GenderAnalyzer.MyEntry"
+             Title="MyEntry">
+  
+  <StackLayout Padding="125" Orientation="Vertical">
+       <Label Text="Enter a location:"></Label>
+       <Entry x:Name="LocationEntry" Margin="10, 0, 10, 0"></Entry>
+       <Label Text="Enter the male population:"></Label>
+       <Entry x:Name="MaleEntry" Margin="10, 10, 10, 0"></Entry>
+       <Label Text="Enter the female population:"></Label>
+       <Entry x:Name="FemaleEntry" Margin="10, 10, 10, 0" ></Entry>
+        <Button Clicked="Button_Clicked" Text="Submit" TextColor="White" BackgroundColor="Red"></Button>
+   </StackLayout>
+  
+</ContentPage>

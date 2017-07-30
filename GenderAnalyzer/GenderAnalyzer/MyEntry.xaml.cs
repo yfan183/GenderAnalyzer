@@ -1,5 +1,4 @@
 ﻿using GenderAnalyzer.DataModels;
-using Microsoft.WindowsAzure.MobileServices;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,36 +14,37 @@ using Xamarin.Forms.Xaml;
 namespace GenderAnalyzer
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AzureTable : ContentPage
+    public partial class MyEntry : ContentPage
     {
-        public AzureTable()
+        public MyEntry()
         {
-            MobileServiceClient client = AzureManager.AzureManagerInstance.AzureClient;
-
             InitializeComponent();
-            BindingContext = new AzureTablesViewModel();
-        }
-
-        async void Handle_ClickedAsync(object sender, System.EventArgs e)
-        {
-            List<GenderGuesserModel> genderInformation = await AzureManager.AzureManagerInstance.getGenderInfo();
-            foreach (var i in genderInformation)
-            {
-                
-            }
-            GenderList.ItemsSource = genderInformation;
+            BindingContext = new MyEntryViewModel();
         }
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new MyEntry());
+            await postStatsAsync(LocationEntry.Text, MaleEntry.Text, FemaleEntry.Text);
+            await DisplayAlert("Thanks", "We have updated our stats with your submission.", "Ok");
+        }
+        async Task postStatsAsync(string location, string malepop, string femalepop)
+        {
+            GenderGuesserModel genderModel = new GenderGuesserModel()
+            {
+                Location = location,
+                Male = malepop,
+                Female = femalepop
+
+            };
+
+            await AzureManager.AzureManagerInstance.PostGenderStats(genderModel);
         }
     }
 
-    class AzureTablesViewModel : INotifyPropertyChanged
+    class MyEntryViewModel : INotifyPropertyChanged
     {
-
-        public AzureTablesViewModel()
+        
+        public MyEntryViewModel()
         {
             IncreaseCountCommand = new Command(IncreaseCount);
         }
@@ -55,7 +55,7 @@ namespace GenderAnalyzer
         public string CountDisplay
         {
             get { return countDisplay; }
-            set { countDisplay = value; OnPropertyChanged(); }
+            set { countDisplay = value;  OnPropertyChanged(); }
         }
 
         public ICommand IncreaseCountCommand { get; }
@@ -67,6 +67,6 @@ namespace GenderAnalyzer
         public event PropertyChangedEventHandler PropertyChanged;
         void OnPropertyChanged([CallerMemberName]string propertyName = "") =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
+        
     }
 }
